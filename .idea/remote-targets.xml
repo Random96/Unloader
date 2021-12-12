@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="RemoteTargetsManager">
+    <option name="projectDefaultTargetUuid" value="68723be2-c79d-40c9-a66c-8be31bc6111b" />
+    <targets>
+      <target name="opc@cnstr.eml-soft.ru:22" type="ssh/sftp" uuid="68723be2-c79d-40c9-a66c-8be31bc6111b">
+        <config>
+          <option name="projectRootOnTarget" value="/home/opc/Unloader" />
+          <option name="serverName" value="opc@cnstr.eml-soft.ru:22 agent" />
+        </config>
+        <ContributedStateBase type="JavaLanguageRuntime">
+          <config>
+            <option name="homePath" value="/usr/java/default" />
+            <option name="javaVersionString" value="1.8.0_301" />
+          </config>
+        </ContributedStateBase>
+      </target>
+    </targets>
+  </component>
+</project>
