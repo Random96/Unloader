@@ -24,7 +24,6 @@ public class SQLSaver extends TableSaver {
         var posOfAmpersand = param.indexOf('&');
 
         if( posOfAmpersand >= 0) {
-            System.out.println(param);
             if (posOfAmpersand == 0) {
                 if( (param.length() > 1))
                     param = "CHR(38)||'" + param.substring(1);

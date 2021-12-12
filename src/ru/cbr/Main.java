@@ -1,5 +1,6 @@
 package ru.cbr;
 
+import java.io.Console;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -50,22 +51,33 @@ public class Main {
         }
 
         try {
-            Connection conn = DriverManager.getConnection(
+            DriverManager.registerDriver(new oracle.jdbc.OracleDriver());
+        } catch (SQLException | NoClassDefFoundError ex) {
+            ex.printStackTrace();
+            return;
+        }
+        Connection conn;
+        try {
+            conn = DriverManager.getConnection(
                     "jdbc:oracle:oci:@" + serverName, userName, userPassword);
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+            System.err.println("Error connecting server = " + serverName + ", userName = " + userName);
+            return;
+        }
 
+        try {
             var tblList = sourceList.getList(conn);
 
             Statement stmt = conn.createStatement();
             for (String tableName : tblList) {
-                System.out.println(tableName);
-
                 ResultSet ds = getDS(tableName, stmt);
                 try (
-                        OutputStream fos = Files.newOutputStream(dataPath.resolve(tableName + "-data.sql"));
-                        PrintStream printStream = new PrintStream(fos, true, "windows-1251")) {
+                    OutputStream fos = Files.newOutputStream(dataPath.resolve(tableName + "-data.sql"));
+                    PrintStream printStream = new PrintStream(fos, true, "windows-1251")) {
                     saver.Save(tableName, ds, printStream);
                 } catch (IOException ex) {
-                    System.out.println(ex.getMessage());
+                    System.err.println(ex.getMessage());
                 }
             }
         } catch (SQLException e) {
@@ -74,6 +86,6 @@ public class Main {
     }
 
     private static ResultSet getDS(String tableName, Statement stmt) throws SQLException {
-        return stmt.executeQuery("select * from " + tableName + " order by sqn" );
+        return stmt.executeQuery("select * from " + tableName + " order by sqn");
     }
 }
