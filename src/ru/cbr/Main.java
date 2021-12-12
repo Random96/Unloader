@@ -8,7 +8,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.*;
-
+import java.util.Arraylist;
+import java.util.List;
 
 public class Main {
 
@@ -67,7 +68,7 @@ public class Main {
         }
 
         try {
-            var tblList = sourceList.getList(conn);
+            List<String> tblList = sourceList.getList(conn);
 
             Statement stmt = conn.createStatement();
             for (String tableName : tblList) {

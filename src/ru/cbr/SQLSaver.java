@@ -21,7 +21,7 @@ public class SQLSaver extends TableSaver {
 
         param = param.replace("'", "''");
 
-        var posOfAmpersand = param.indexOf('&');
+        int posOfAmpersand = param.indexOf('&');
 
         if( posOfAmpersand >= 0) {
             if (posOfAmpersand == 0) {
